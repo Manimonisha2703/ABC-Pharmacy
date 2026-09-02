@@ -1,0 +1,75 @@
+<main class="sale-form-page">
+  <header class="page-header">
+    <p class="eyebrow">Transactions</p>
+    <h1>Record Sale</h1>
+    <p class="intro">Create a new medicine sale transaction.</p>
+  </header>
+
+  <section class="sales-card sale-entry" aria-labelledby="record-sale-heading">
+  <div class="card-heading">
+    <div>
+      <p class="card-label">New transaction</p>
+      <h2 id="record-sale-heading">Record Sale</h2>
+    </div>
+    <span class="card-icon" aria-hidden="true">+</span>
+  </div>
+
+  <form class="sale-grid" [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+    <div class="field field-wide">
+      <label for="sale-medicine">Medicine</label>
+      <select id="sale-medicine" formControlName="medicineId" (change)="onMedicineChange()">
+        <option value="">Select medicine</option>
+        <option *ngFor="let medicine of medicines" [value]="medicine.id">{{ medicine.name }}</option>
+      </select>
+      <p class="validation-message" *ngIf="saleForm.get('medicineId')?.touched && saleForm.get('medicineId')?.hasError('required')">Medicine is required.</p>
+    </div>
+
+    <div class="detail-box">
+      <span>Medicine Name</span>
+      <strong>{{ selectedMedicine?.name || 'Select a medicine' }}</strong>
+    </div>
+    <div class="detail-box">
+      <span>Available Stock</span>
+      <strong>{{ selectedMedicine?.quantity || 0 }}</strong>
+    </div>
+    <div class="detail-box">
+      <span>Price per Unit</span>
+      <strong>{{ (selectedMedicine?.price || 0) | number: '1.2-2' }}</strong>
+    </div>
+
+    <div class="field">
+      <label for="quantity-sold">Quantity Sold</label>
+      <input id="quantity-sold" type="number" min="1" formControlName="quantity" placeholder="Enter quantity">
+      <p class="validation-message" *ngIf="saleForm.get('quantity')?.touched && saleForm.get('quantity')?.hasError('min')">Quantity must be greater than 0.</p>
+      <p class="validation-message" *ngIf="saleForm.get('quantity')?.touched && isQuantityOverStock()">Quantity cannot exceed available stock.</p>
+    </div>
+    <div class="total-box">
+      <span>Total Amount</span>
+      <strong>₹{{ totalAmount | number: '1.2-2' }}</strong>
+    </div>
+
+    <div class="field field-wide">
+      <label for="customer-name">Customer Name</label>
+      <input id="customer-name" type="text" formControlName="customerName" placeholder="Enter customer name">
+      <p class="validation-message" *ngIf="saleForm.get('customerName')?.touched && saleForm.get('customerName')?.hasError('required')">Customer name is required.</p>
+      <p class="validation-message" *ngIf="saleForm.get('customerName')?.touched && saleForm.get('customerName')?.hasError('pattern')">Enter a valid customer name.</p>
+    </div>
+
+    <div class="sale-footer">
+      <p class="success-message" *ngIf="successMessage" aria-live="polite">{{ successMessage }}</p>
+      <div class="sale-actions">
+        <button type="button" class="button button-secondary" (click)="closeForm()">Close</button>
+        <button type="submit" class="button button-primary" [disabled]="isSaving">{{ isSaving ? 'Recording...' : 'Record Sale' }}</button>
+      </div>
+    </div>
+  </form>
+  <div class="exit-toast" *ngIf="showExitConfirmation" role="alertdialog" aria-live="assertive" aria-label="Unsaved changes confirmation">
+    <span>Are you sure to exit, you have unsaved changes</span>
+    <div class="exit-actions">
+      <button type="button" class="button button-secondary" (click)="cancelExit()">No</button>
+      <button type="button" class="button button-primary" (click)="confirmExit()">Yes</button>
+    </div>
+  </div>
+  <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+</section>
+</main>

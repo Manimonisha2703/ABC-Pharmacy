@@ -1,0 +1,171 @@
+.form-page {
+	max-width: 780px;
+	margin: 0 auto;
+	padding: 40px 24px 56px;
+	color: #1f2933;
+}
+
+.status {
+	margin-bottom: 18px;
+	padding: 13px 16px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.status-loading {
+	background: #e6f3f1;
+	color: #1f5f59;
+}
+
+.status-error {
+	background: #fbe8e7;
+	color: #8f302b;
+}
+
+.button:disabled {
+	cursor: not-allowed;
+	opacity: 0.65;
+}
+
+.page-header {
+	margin-bottom: 28px;
+}
+
+.eyebrow {
+	margin: 0 0 8px;
+	color: #287c73;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+h1 {
+	margin: 0 0 8px;
+	font-size: 30px;
+	line-height: 1.2;
+}
+
+.intro {
+	margin: 0;
+	color: #697586;
+}
+
+.medicine-form {
+	padding: 28px;
+	border: 1px solid #d9e2ec;
+	border-radius: 6px;
+	background: #fff;
+}
+
+.form-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 20px 18px;
+}
+
+.field-wide {
+	grid-column: 1 / -1;
+}
+
+label {
+	display: block;
+	margin-bottom: 7px;
+	color: #52606d;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+input,
+textarea {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 11px 12px;
+	border: 1px solid #cbd2d9;
+	border-radius: 5px;
+	background: #fff;
+	color: #1f2933;
+	font: inherit;
+}
+
+textarea {
+	resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+	border-color: #287c73;
+	outline: 3px solid rgba(40, 124, 115, 0.15);
+}
+
+.validation-message {
+	margin: 6px 0 0;
+	color: #a33a35;
+	font-size: 12px;
+}
+
+.form-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 28px;
+	padding-top: 22px;
+	border-top: 1px solid #e4e7eb;
+}
+
+.exit-toast {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-top: 16px;
+	padding: 14px 16px;
+	border: 1px solid #e2b93b;
+	border-radius: 5px;
+	background: #fff8dc;
+	color: #5f4b12;
+	font-size: 13px;
+}
+
+.exit-actions {
+	display: flex;
+	flex-shrink: 0;
+	gap: 8px;
+}
+
+.button {
+	padding: 11px 18px;
+	border: 0;
+	border-radius: 5px;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 700;
+}
+
+.button-primary {
+	background: #287c73;
+	color: #fff;
+}
+
+.button-secondary {
+	background: #e6f3f1;
+	color: #1f5f59;
+}
+
+@media (max-width: 640px) {
+	.form-page {
+		padding: 28px 16px 40px;
+	}
+
+	.medicine-form {
+		padding: 20px;
+	}
+
+	.form-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.field-wide {
+		grid-column: auto;
+	}
+}

@@ -1,0 +1,29 @@
+[
+    {
+      "id": 1,
+      "Name": "Aspirin 500mg",
+      "notes": "Pain reliever and anti-inflammatory",
+      "expiryDate": "2025-12-31T00:00:00",
+      "quantity": 100,
+      "price": 5.99,
+      "brand": "Bayer"
+    },
+    {
+      "id": 2,
+      "Name": "Ibuprofen 400mg",
+      "notes": "Anti-inflammatory medication",
+      "expiryDate": "2025-12-31T00:00:00",
+      "quantity": 150,
+      "price": 7.99,
+      "brand": "Pfizer"
+    },
+    {
+      "id": 3,
+      "Name": "Paracetamol 500mg",
+      "notes": "Pain reliever and fever reducer",
+      "expiryDate": "2025-12-31T00:00:00",
+      "quantity": 200,
+      "price": 4.99,
+      "brand": "GSK"
+    }
+  ]

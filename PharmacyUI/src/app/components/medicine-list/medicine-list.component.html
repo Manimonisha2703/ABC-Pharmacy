@@ -1,0 +1,59 @@
+<main class="medicine-page">
+	<header class="page-header">
+		<div>
+			<p class="eyebrow">Inventory management</p>
+			<h1>ABC Pharmacy - Medicines</h1>
+		</div>
+		<button type="button" class="button button-primary" (click)="addMedicine()">Add Medicine</button>
+	</header>
+
+	<section class="toolbar" aria-label="Medicine search">
+		<label for="medicine-search">Search medicines</label>
+		<input
+			#searchInput
+			id="medicine-search"
+			type="search"
+			placeholder="Search by full name"
+			[value]="searchTerm"
+			(input)="searchTerm = searchInput.value; onSearch()">
+	</section>
+
+	<p class="status status-loading" *ngIf="isLoading">Loading medicines...</p>
+	<p class="status status-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+	<section class="table-panel" *ngIf="!isLoading && !errorMessage && filteredMedicines.length > 0" aria-label="Medicine list">
+		<div class="table-scroll">
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">Full Name</th>
+						<th scope="col">Brand</th>
+						<th scope="col">Expiry Date</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Price</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let medicine of filteredMedicines" [ngClass]="getRowClass(medicine)">
+						<td>{{ medicine.name }}</td>
+						<td>{{ medicine.brand }}</td>
+						<td>{{ medicine.expiryDate | date: 'mediumDate' }}</td>
+						<td>{{ medicine.quantity }}</td>
+						<td>{{ medicine.price | number: '1.2-2' }}</td>
+						<td class="actions">
+							<button type="button" class="button button-small" (click)="editMedicine(medicine.id)">Edit</button>
+							<button type="button" class="button button-small button-danger" (click)="deleteMedicine(medicine.id)">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section class="empty-state" *ngIf="!isLoading && !errorMessage && filteredMedicines.length === 0">
+		<h2>No medicines found</h2>
+		<p>Add a medicine to start building your pharmacy inventory.</p>
+		<button type="button" class="button button-secondary" (click)="addMedicine()">Add your first medicine</button>
+	</section>
+</main>

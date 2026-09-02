@@ -1,0 +1,62 @@
+<main class="form-page">
+	<header class="page-header">
+		<p class="eyebrow">Medicine details</p>
+		<h1>{{ isEditMode ? 'Edit Medicine' : 'Add Medicine' }}</h1>
+		<p class="intro">Keep medicine information accurate for inventory and sales.</p>
+	</header>
+
+	<p class="status status-loading" *ngIf="isLoading">Loading medicine...</p>
+	<p class="status status-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+	<form class="medicine-form" [formGroup]="medicineForm" (ngSubmit)="onSubmit()">
+		<div class="form-grid">
+			<div class="field field-wide">
+				<label for="full-name">Full Name</label>
+				<input id="full-name" type="text" formControlName="Name">
+				<p class="validation-message" *ngIf="medicineForm.get('Name')?.touched && medicineForm.get('Name')?.hasError('required')">Full Name is required.</p>
+			</div>
+
+			<div class="field">
+				<label for="brand">Brand</label>
+				<input id="brand" type="text" formControlName="brand">
+				<p class="validation-message" *ngIf="medicineForm.get('brand')?.touched && medicineForm.get('brand')?.hasError('required')">Brand is required.</p>
+			</div>
+
+			<div class="field">
+				<label for="expiry-date">Expiry Date</label>
+				<input id="expiry-date" type="date" formControlName="expiryDate">
+				<p class="validation-message" *ngIf="medicineForm.get('expiryDate')?.touched && medicineForm.get('expiryDate')?.hasError('required')">Expiry Date is required.</p>
+			</div>
+
+			<div class="field">
+				<label for="quantity">Quantity</label>
+				<input id="quantity" type="number" min="1" formControlName="quantity">
+				<p class="validation-message" *ngIf="medicineForm.get('quantity')?.touched && (medicineForm.get('quantity')?.hasError('required') || medicineForm.get('quantity')?.hasError('min'))">Quantity must be greater than 0.</p>
+			</div>
+
+			<div class="field">
+				<label for="price">Price</label>
+				<input id="price" type="number" min="0.01" step="0.01" formControlName="price">
+				<p class="validation-message" *ngIf="medicineForm.get('price')?.touched && (medicineForm.get('price')?.hasError('required') || medicineForm.get('price')?.hasError('min'))">Price must be greater than 0.</p>
+			</div>
+
+			<div class="field field-wide">
+				<label for="notes">Notes</label>
+				<textarea id="notes" rows="4" formControlName="notes"></textarea>
+			</div>
+		</div>
+
+		<div class="form-actions">
+			<button type="button" class="button button-secondary" (click)="cancel()">Cancel</button>
+			<button type="submit" class="button button-primary" [disabled]="isLoading || isSaving">{{ isSaving ? 'Saving...' : 'Save' }}</button>
+		</div>
+	</form>
+
+	<div class="exit-toast" *ngIf="showExitConfirmation" role="alertdialog" aria-live="assertive" aria-label="Unsaved changes confirmation">
+		<span>Are you sure to exit, you have unsaved changes</span>
+		<div class="exit-actions">
+			<button type="button" class="button button-secondary" (click)="cancelExit()">No</button>
+			<button type="button" class="button button-primary" (click)="confirmExit()">Yes</button>
+		</div>
+	</div>
+</main>
